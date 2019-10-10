@@ -1,21 +1,9 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
 .App-header {
-  background-color: #81a887;
+  background-color: #80ae8e;
   text-align: center;
   height: 150px;
   padding: 20px;
   color: white;
-}
-
-.App-link {
-  color: #09d3ac;
 }
 
 .tile {
@@ -23,8 +11,20 @@
   width: 200px;
   padding: 20px;
   margin: 10px;
-  background: rgb(228, 241, 247);
+  background: #f1eae3;
   float: left;
   font-size: 14px;
   text-align: left;
+}
+
+.newNoteButton {
+  background: #365a92;
+  color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding:10px;
 }

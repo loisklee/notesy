@@ -23,6 +23,11 @@ class NotesContainer extends Component {
   render() {
     return (
       <div>
+        <div>
+          <button className="newNoteButton">
+            New Note
+          </button>
+        </div>
         {this.state.notes.map((note) => {
           return (<Note note={note} key={note.id} />)
         })}
