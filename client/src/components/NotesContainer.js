@@ -69,9 +69,23 @@ class NotesContainer extends Component {
       () => { this.title.focus() }) // using callback to make sure focus gets called only after component is updated
   }
 
+  deleteNote = (id) => {
+    axios.delete(`http://localhost:3001/api/v1/notes/${id}`)
+    .then(response => {
+      //look up index of deleted note
+      const noteIndex = this.state.notes.findIndex(x => x.id === id)
+      //use $splice to create new array of notes
+      const notes = update(this.state.notes, { $splice: [[noteIndex, 1]]})
+      //update state.notes with the new array
+      this.setState({notes: notes})
+    })
+    .catch(error => console.log(error))
+  }
+
   resetNotification = () => {
     this.setState({notification: ''})
   }
+  
   
   render() {
     return (
@@ -86,12 +100,16 @@ class NotesContainer extends Component {
         </div>
         {this.state.notes.map((note) => {
           if(this.state.editingNoteId === note.id) {
-            return(<NoteForm note={note} key={note.id}
+            return(
+            <NoteForm note={note} key={note.id}
               updateNote = {this.updateNote} // prop from notescontainer to noteform
               titleRef= {input => this.title = input}
               resetNotification={this.resetNotification}/>) 
           } else {
-            return (<Note note={note} key={note.id} onClick={this.enableEditing}/>)
+            return (
+            <Note note={note} key={note.id} 
+            onClick={this.enableEditing}
+            onDelete={this.deleteNote} />)
           }
         })}
       </div>
