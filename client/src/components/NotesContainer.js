@@ -12,7 +12,8 @@ class NotesContainer extends Component {
     super(props)
     this.state = {
       notes: [],
-      editingNoteId: null // keeps track of which note is being currently edited 
+      editingNoteId: null, // keeps track of which note is being currently edited 
+      notification: ''
     }
   }
 
@@ -50,6 +51,23 @@ class NotesContainer extends Component {
     .catch(error => console.log(error))
   }
   
+  updateNote = (note) => {
+    // find index of edited note in array
+    const noteIndex = this.state.notes.findIndex(x => x.id === note.id)
+    const notes = update(this.state.notes, {
+    // then use $set command to replae old value with new
+      [noteIndex]: { $set: note }
+    })
+    this.setState({
+      notes: notes,
+      notification: 'All changes saved'
+    })
+  }
+
+  resetNotification = () => {
+    this.setState({notification: ''})
+  }
+  
   render() {
     return (
       <div>
@@ -57,10 +75,15 @@ class NotesContainer extends Component {
           <button className="newNoteButton" onClick={this.addNewNote} >
             New Note
           </button>
+          <span className="notification">
+            {this.state.notification}
+          </span>
         </div>
         {this.state.notes.map((note) => {
           if(this.state.editingNoteId === note.id) {
-            return(<NoteForm note={note} key={note.id} />)
+            return(<NoteForm note={note} key={note.id}
+              updateNote = {this.updateNote} // prop from notescontainer to noteform
+              resetNotification={this.resetNotification}/>) 
           } else {
             return (<Note note={note} key={note.id} />)
           }

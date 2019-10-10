@@ -11,6 +11,7 @@ class NoteForm extends Component {
   }
 
   handleInput = (e) => {
+    this.props.resetNotification()
     this.setState({[e.target.name]: e.target.value})
   }
   
@@ -27,6 +28,7 @@ class NoteForm extends Component {
       })
     .then(response => {
       console.log(response)
+      this.props.updateNote(response.data) // sends edited note data to notescontainer to update state
     })
     .catch(error => console.log(error))
   }
