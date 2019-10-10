@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import Note from './Note'
 
 class NotesContainer extends Component {
 
@@ -22,15 +23,10 @@ class NotesContainer extends Component {
   render() {
     return (
       <div>
-      {this.state.notes.map((note) => {
-        return(
-          <div className="tile" key={note.id} >
-            <h4>{note.title}</h4>
-            <p>{note.body}</p>
-          </div>
-        )       
-      })}
-    </div>
+        {this.state.notes.map((note) => {
+          return (<Note note={note} key={note.id} />)
+        })}
+      </div>
     )
   }
 }
