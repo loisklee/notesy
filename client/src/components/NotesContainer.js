@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Note from './Note'
+import NoteForm from './NoteForm'
 import axios from 'axios'
 import update from 'immutability-helper'
 
@@ -10,7 +11,8 @@ class NotesContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      notes: []
+      notes: [],
+      editingNoteId: null // keeps track of which note is being currently edited 
     }
   }
 
@@ -41,7 +43,9 @@ class NotesContainer extends Component {
         $splice: [[0, 0, response.data]]
       })
       // then use new notes aray to update the state with setState
-      this.setState({notes: notes})
+      this.setState({notes: notes,
+      editingNoteId: response.data.id
+      })
     })
     .catch(error => console.log(error))
   }
@@ -55,7 +59,11 @@ class NotesContainer extends Component {
           </button>
         </div>
         {this.state.notes.map((note) => {
-          return (<Note note={note} key={note.id} />)
+          if(this.state.editingNoteId === note.id) {
+            return(<NoteForm note={note} key={note.id} />)
+          } else {
+            return (<Note note={note} key={note.id} />)
+          }
         })}
       </div>
     )
