@@ -65,7 +65,8 @@ class NotesContainer extends Component {
   }
   
   enableEditing = (id) => {
-    this.setState({editingNoteId: id})
+    this.setState({editingNoteId: id},
+      () => { this.title.focus() }) // using callback to make sure focus gets called only after component is updated
   }
 
   resetNotification = () => {
@@ -87,6 +88,7 @@ class NotesContainer extends Component {
           if(this.state.editingNoteId === note.id) {
             return(<NoteForm note={note} key={note.id}
               updateNote = {this.updateNote} // prop from notescontainer to noteform
+              titleRef= {input => this.title = input}
               resetNotification={this.resetNotification}/>) 
           } else {
             return (<Note note={note} key={note.id} onClick={this.enableEditing}/>)
