@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios'
 import Note from './Note'
+import axios from 'axios'
+import update from 'immutability-helper'
+
+
 
 class NotesContainer extends Component {
 
@@ -32,6 +35,13 @@ class NotesContainer extends Component {
     )
     .then(response => {
       console.log(response)
+      // made new copy of this.state.notes 
+      // and use $splice command to insert new note in response.data at the 0th index
+      const notes = update(this.state.notes, {
+        $splice: [[0, 0, response.data]]
+      })
+      // then use new notes aray to update the state with setState
+      this.setState({notes: notes})
     })
     .catch(error => console.log(error))
   }
