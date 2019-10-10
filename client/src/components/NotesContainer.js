@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Note from './Note'
 import NoteForm from './NoteForm'
+import Notification from './Notification'
 import axios from 'axios'
 import update from 'immutability-helper'
 
@@ -13,7 +14,8 @@ class NotesContainer extends Component {
     this.state = {
       notes: [],
       editingNoteId: null, // keeps track of which note is being currently edited 
-      notification: ''
+      notification: '',
+      transitionIn: false
     }
   }
 
@@ -60,7 +62,8 @@ class NotesContainer extends Component {
     })
     this.setState({
       notes: notes,
-      notification: 'All changes saved'
+      notification: 'All changes saved',
+      transitionIn: true
     })
   }
   
@@ -83,7 +86,7 @@ class NotesContainer extends Component {
   }
 
   resetNotification = () => {
-    this.setState({notification: ''})
+    this.setState({notification: '', transitionIn: false})
   }
   
   
@@ -94,9 +97,7 @@ class NotesContainer extends Component {
           <button className="newNoteButton" onClick={this.addNewNote} >
             New Note
           </button>
-          <span className="notification">
-            {this.state.notification}
-          </span>
+          <Notification in={this.state.transitionIn} notification = {this.state.notification} />
         </div>
         {this.state.notes.map((note) => {
           if(this.state.editingNoteId === note.id) {

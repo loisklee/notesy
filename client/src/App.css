@@ -7,13 +7,13 @@
 }
 
 .tile {
-  height: 200px;
-  width: 200px;
+  height: 250px;
+  width: 250px;
   padding: 20px;
   margin: 10px;
   background: #f1eae3;
   float: left;
-  font-size: 14px;
+  font-size: 18px;
   text-align: left;
 }
 
@@ -34,8 +34,8 @@
   background: none;
   outline: none;
   margin-top:10px;
-  width: 140px;
-  font-size: 11px;
+  width: 210px;
+  font-size: 16px;
 }
 
 .input:focus {
@@ -45,7 +45,7 @@
 textarea {
   resize: none;
   height: 90px;
-  font-size: 11px;
+  font-size: 16px;
 }
 
 .deleteButton {
