@@ -63,6 +63,10 @@ class NotesContainer extends Component {
       notification: 'All changes saved'
     })
   }
+  
+  enableEditing = (id) => {
+    this.setState({editingNoteId: id})
+  }
 
   resetNotification = () => {
     this.setState({notification: ''})
@@ -85,7 +89,7 @@ class NotesContainer extends Component {
               updateNote = {this.updateNote} // prop from notescontainer to noteform
               resetNotification={this.resetNotification}/>) 
           } else {
-            return (<Note note={note} key={note.id} />)
+            return (<Note note={note} key={note.id} onClick={this.enableEditing}/>)
           }
         })}
       </div>
