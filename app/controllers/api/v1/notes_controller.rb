@@ -9,7 +9,13 @@ module Api::V1
       @note = Note.create(note_params)
       render json: @note
     end
-        
+       
+    def update
+      @note = Note.find(params[:id])
+      @note.update_attributes(note_params)
+      render json: @note
+    end
+    
     private
     
       def note_params
