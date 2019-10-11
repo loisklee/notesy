@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import NotesContainer from './components/NotesContainer'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
-class App extends Component {
+// import SignupForm from './components/SignupForm';
 
-  render() {
+
+function App() {
+
     return (
       <div className="App">
-        <div className="App-header">
-          <h1>Notesy</h1>
-          <h5>a light, quick note app</h5>
-        </div>
-        <NotesContainer />
+        <Header />
+        <Footer />
       </div>
     );
-  }
+  
 }
 
 export default App;
