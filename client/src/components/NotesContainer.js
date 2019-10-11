@@ -62,7 +62,7 @@ class NotesContainer extends Component {
     })
     this.setState({
       notes: notes,
-      notification: 'All changes saved',
+      notification: 'saved!',
       transitionIn: true
     })
   }
