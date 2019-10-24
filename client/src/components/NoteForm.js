@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import {updateNote} from '../actions/noteActions'
+import { connect } from 'react-redux'
 
 class NoteForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      id: this.props.note.id,
       title: this.props.note.title,
       body: this.props.note.body
     }
@@ -16,25 +18,18 @@ class NoteForm extends Component {
   }
   
   handleBlur = () => {
-    const note = {
-      title: this.state.title,
-      body: this.state.body
-    }
-  
-    axios.put(
-      `http://localhost:3001/api/v1/notes/${this.props.note.id}`,
-      {
-        note: note
-      })
-    .then(response => {
-      console.log(response)
-      this.props.updateNote(response.data) // sends edited note data to notescontainer to update state
-    })
-    .catch(error => console.log(error))
+    
+    this.props.updateNote(this.state)
+
   }
   
   render() {
+    // debugger
+    //     const title = (this.props.note.title !== 0) ? this.props.note.title : this.state.title
+    //     const body = (this.props.note.body!== 0) ? this.props.note.body :this.state.body
+    
     return (
+      
       <div className="tile">
 <       form onBlur={this.handleBlur} >
           <input className='input' type="text"
@@ -46,11 +41,18 @@ class NoteForm extends Component {
             placeholder='Describe your note'
             value={this.state.body} onChange={this.handleInput}>
           </textarea>
-
+        
         </form>
       </div>
     );
   }
 }
 
-export default NoteForm
+
+const mapStateToProps = (state) => {
+    console.log (state.notes)
+    return {
+      notes: state.notes
+    }
+  }
+  export default connect ( mapStateToProps ,  {updateNote} ) (NoteForm)

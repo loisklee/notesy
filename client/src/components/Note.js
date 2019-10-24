@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import {deleteNote, updateNote} from '../actions/noteActions'
+
 
 class Note extends Component {
 
@@ -7,7 +10,7 @@ class Note extends Component {
   }
 
   handleDelete = () => {
-    this.props.onDelete(this.props.note.id)
+    this.props.deleteNote(this.props.note.id)
   }
 
   render () {
@@ -16,6 +19,7 @@ class Note extends Component {
         <span className="deleteButton" onClick={this.handleDelete}>
           x
         </span>
+    
         <h4 onClick={this.handleClick}>
           {this.props.note.title}
         </h4>
@@ -27,4 +31,5 @@ class Note extends Component {
   }
 }
 
-export default Note
+export default connect (null, {updateNote, deleteNote} ) (Note)
+  
