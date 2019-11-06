@@ -7,17 +7,33 @@ import Notification from './Notification'
 import { connect } from 'react-redux'
 import {fetchNotes, addNewNote, deleteNote, updateNote, toggleNote} from '../actions/noteActions'
 import {resetNotification} from '../actions/notificationActions'
+import SearchField from './SearchField'
 
 
 
 class NotesContainer extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      input: '',
+
+    }
+  }
+
   componentDidMount() {
-    this.props.fetchNotes(this.state)
+    this.props.fetchNotes()
   }
   
-  
+  updateInput(input){
+    this.setState({
+      input
+    })
+  }
+
   render() {
+    const newArray = this.props.notes.notes.filter(item => item.title.includes(this.state.input))
+    
     return (
       <div>
         
@@ -25,10 +41,17 @@ class NotesContainer extends Component {
           <button className="newNoteButton" onClick={this.props.addNewNote} >
             New Note
           </button>
+
+          <SearchField
+            placeholder="Search item"
+            updateInput={(q) => this.updateInput.call(this, q)}
+          />
+
           <Notification in={this.props.notes.transitionIn} notification = {this.props.notes.notification} />
         </div>
+        
+        {newArray.map((note) => {
 
-        {this.props.notes.notes.map((note) => {
           if(this.props.notes.editingNoteId === note.id) {
             return(
             <NoteForm note={note} key={note.id}
@@ -42,6 +65,7 @@ class NotesContainer extends Component {
             onClick={this.props.toggleNote}
             onDelete={this.props.deleteNote} />)
           }
+
         })}
       </div>
     )
