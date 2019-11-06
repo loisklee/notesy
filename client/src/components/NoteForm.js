@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {updateNote} from '../actions/noteActions'
 import { connect } from 'react-redux'
+import {resetNotification} from '../actions/notificationActions'
 
 class NoteForm extends Component {
   constructor(props) {
@@ -18,9 +19,8 @@ class NoteForm extends Component {
   }
   
   handleBlur = () => {
-    
-    this.props.updateNote(this.state)
-
+    this.props.updateNote(this.state);
+    this.props.resetNotification()
   }
   
   render() {
@@ -55,4 +55,4 @@ const mapStateToProps = (state) => {
       notes: state.notes
     }
   }
-  export default connect ( mapStateToProps ,  {updateNote} ) (NoteForm)
+  export default connect ( mapStateToProps ,  {updateNote, resetNotification} ) (NoteForm)

@@ -31,11 +31,9 @@ export const toggleNote = (id) => ({
 })
 
 export const updateNote = (note) => (dispatch) => {
-  // debugger
     return axios.put(`http://localhost:3001/api/v1/notes/${note.id}`, {note})
     
     .then( (response) => {
-            // debugger
       dispatch({type: 'UPDATE_NOTE', payload: response.data});
 
     })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {deleteNote, updateNote} from '../actions/noteActions'
+import {deleteNote} from '../actions/noteActions'
 
 
 class Note extends Component {
@@ -31,5 +31,5 @@ class Note extends Component {
   }
 }
 
-export default connect (null, {updateNote, deleteNote} ) (Note)
+export default connect (null, {deleteNote} ) (Note)
   

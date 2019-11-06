@@ -12,7 +12,7 @@ module Api::V1
        
     def update
       @note = Note.find(params[:id])
-      @note.update_attributes(note_params)
+      @note.update(note_params)
       render json: @note
     end
     
@@ -28,7 +28,7 @@ module Api::V1
     private
     
       def note_params
-        params.require(:note).permit(:title, :body)
+        params.require(:note).permit(:title, :body, :id)
       end
   end
 end

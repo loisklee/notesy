@@ -6,46 +6,35 @@ import Notification from './Notification'
 // import update from 'immutability-helper'
 import { connect } from 'react-redux'
 import {fetchNotes, addNewNote, deleteNote, updateNote, toggleNote} from '../actions/noteActions'
+import {resetNotification} from '../actions/notificationActions'
 
 
 
 class NotesContainer extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      // notes: [],
-      // editingNoteId: null, // keeps track of which note is being currently edited 
-      notification: '',
-      transitionIn: false
-    }
-  }
-
   componentDidMount() {
     this.props.fetchNotes(this.state)
-  }
-
-  resetNotification = () => {
-    this.setState({notification: '', transitionIn: false})
   }
   
   
   render() {
     return (
       <div>
+        
         <div>
           <button className="newNoteButton" onClick={this.props.addNewNote} >
             New Note
           </button>
-          <Notification in={this.state.transitionIn} notification = {this.state.notification} />
+          <Notification in={this.props.notes.transitionIn} notification = {this.props.notes.notification} />
         </div>
+
         {this.props.notes.notes.map((note) => {
           if(this.props.notes.editingNoteId === note.id) {
             return(
             <NoteForm note={note} key={note.id}
               updateNote = {this.props.updateNote} // prop from notescontainer to noteform
               titleRef= {input => this.title = input}
-              resetNotification={this.resetNotification}/>) 
+              resetNotification={this.props.resetNotification}/>) 
           } else 
           {
             return (
@@ -62,8 +51,10 @@ class NotesContainer extends Component {
 const mapStateToProps = (state) => {
     console.log (state.notes)
     return {
-      notes: state.notes
+      notes: state.notes,
+      notification: state.notification,
+      transitionIn: state.transitionIn
     }
   }
-  export default connect ( mapStateToProps , {toggleNote, fetchNotes, addNewNote, deleteNote,updateNote} ) (NotesContainer)
+  export default connect ( mapStateToProps , {resetNotification, toggleNote, fetchNotes, addNewNote, deleteNote,updateNote} ) (NotesContainer)
   
