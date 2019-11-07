@@ -18,12 +18,10 @@ export default class SearchField extends Component {
 
         return (
                 <form onSubmit={this.handleSubmit}>
-                        <label htmlFor="query">Enter a Search Term:</label>
+                        <label>Search notes:</label>
                         <br/>
                         <input type="text" value={this.state.query} onChange={this.onChangeHandler}/>
-                        <br/>
-                    <input className="btn btn-primary" type="submit" value="Search"/>
-                    <br/>
+                    <input type="submit" value="Search"/>
                     <br/>
                 </form>
                 

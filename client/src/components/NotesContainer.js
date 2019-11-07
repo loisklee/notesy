@@ -42,12 +42,13 @@ class NotesContainer extends Component {
             New Note
           </button>
 
+          <Notification in={this.props.notes.transitionIn} notification = {this.props.notes.notification} />
+          
           <SearchField
             placeholder="Search item"
-            updateInput={(q) => this.updateInput.call(this, q)}
+            updateInput={(q) => this.updateInput(q)}
           />
 
-          <Notification in={this.props.notes.transitionIn} notification = {this.props.notes.notification} />
         </div>
         
         {newArray.map((note) => {
